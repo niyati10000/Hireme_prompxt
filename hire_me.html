@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niyati Bansal · full portfolio · CE · GDG lead</title>
+  <!-- particle.js library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0b1120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      perspective: 1200px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* AURORA BACKGROUND */
+    body {
+      background: linear-gradient(145deg, #0a1a2f, #142b44, #1c3a5c, #1e4d6e);
+      background-size: 400% 400%;
+      animation: auroraDrift 15s ease infinite alternate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 30% 40%, rgba(90, 200, 250, 0.35) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(180, 130, 255, 0.4) 0%, transparent 45%),
+        radial-gradient(circle at 20% 80%, rgba(70, 240, 210, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 70% 20%, rgba(210, 140, 255, 0.4) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(0,240,255,0.05) 2px, transparent 5px);
+      background-size: 200% 200%, 250% 250%, 220% 220%, 200% 200%, auto;
+      animation: auroraLayer 18s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: overlay;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 10% 30%, rgba(130, 240, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 60%, #a67cff30 0%, transparent 55%),
+        radial-gradient(ellipse at 40% 80%, #6effe6 0.1%, transparent 50%);
+      background-size: 300% 300%, 280% 280%, 320% 320%;
+      animation: auroraShift 20s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes auroraDrift {
+      0% { background-position: 0% 0%; background-color: #0a192f; }
+      100% { background-position: 100% 100%; background-color: #1f3a5f; }
+    }
+    @keyframes auroraLayer {
+      0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; opacity: 0.7; }
+      100% { background-position: 100% 70%, 80% 30%, 20% 80%, 90% 40%; opacity: 0.8; }
+    }
+    @keyframes auroraShift {
+      0% { background-position: 0% 0%, 0% 0%, 0% 0%; opacity: 0.5; }
+      100% { background-position: 100% 40%, 20% 70%, 90% 20%; opacity: 0.8; }
+    }
+
+    /* ----- main glass card (wider for extra sections) ----- */
+    .glass-card {
+      position: relative;
+      z-index: 20;
+      max-width: 1200px;
+      width: 100%;
+      background: rgba(8, 20, 40, 0.2);
+      backdrop-filter: blur(16px) saturate(200%);
+      -webkit-backdrop-filter: blur(16px) saturate(200%);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(140, 230, 255, 0.3);
+      box-shadow: 0 30px 50px -20px #001020, inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px rgba(0,255,255,0.2);
+      padding: 2.5rem;
+      color: rgba(255, 255, 255, 0.95);
+      transition: transform 0.2s ease-out;
+      transform-style: preserve-3d;
+      cursor: default;
+      will-change: transform;
+      text-shadow: 0 2px 10px rgba(0,30,50,0.8);
+      background-color: rgba(5, 15, 30, 0.15);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* profile row */
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(130, 240, 255, 0.7);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), 0 8px 20px rgba(0,0,0,0.5);
+      background: #1a3344;
+    }
+
+    .name-title h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: white;
+      line-height: 1.2;
+      text-shadow: 0 0 15px cyan;
+    }
+
+    .name-title .role {
+      font-size: 1.2rem;
+      color: #b0e0ff;
+      border-left: 3px solid #38bdf8;
+      padding-left: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    .name-title .subrole {
+      font-size: 1rem;
+      color: #a0c0e0;
+      margin-top: 0.2rem;
+      padding-left: 1rem;
+    }
+
+    /* TERMINAL BIO */
+    .terminal-bio {
+      background: rgba(0, 10, 20, 0.5);
+      border-radius: 1.2rem;
+      padding: 1.5rem 1.8rem;
+      font-family: 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2), 0 8px 18px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    .typewriter-line {
+      color: #c0f5ff;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.6rem;
+      height: 1.4rem;
+      background-color: #a0f0ff;
+      margin-left: 4px;
+      vertical-align: middle;
+      box-shadow: 0 0 10px cyan;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* buttons */
+    .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .social-btn {
+      background: rgba(0, 40, 60, 0.35);
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      color: white;
+      padding: 0.7rem 1.8rem;
+      border-radius: 2.5rem;
+      font-size: 1rem;
+      font-weight: 450;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,180,255,0.2);
+      cursor: pointer;
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .social-btn:hover {
+      background: rgba(20, 100, 130, 0.5);
+      border-color: #9ff0ff;
+      box-shadow: 0 0 20px cyan, 0 6px 18px rgba(0,200,255,0.4);
+      transform: translateY(-2px);
+    }
+
+    .social-btn.download {
+      background: #1e405b;
+      border-color: #38bdf8;
+    }
+
+    /* section titles */
+    .section-title {
+      margin: 1rem 0 0.5rem 0;
+    }
+    .section-title h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: #b0e0ff;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+      padding-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+
+    /* projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    .project-card {
+      background: rgba(10, 25, 45, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 1.5rem;
+      padding: 1.3rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 255, 255, 0.6);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), 0 15px 25px -8px black;
+      background: rgba(15, 35, 60, 0.7);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .project-icon {
+      font-size: 1.8rem;
+      filter: drop-shadow(0 0 5px cyan);
+    }
+    .project-header h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: white;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #c0d4e6;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.7rem 0 1rem 0;
+    }
+    .project-tech span {
+      background: rgba(0, 200, 255, 0.15);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 30px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #9fd9ff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .project-links a {
+      color: #b0f0ff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-bottom: 1px dotted transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .project-links a:hover {
+      color: white;
+      border-bottom-color: cyan;
+    }
+
+    /* achievements & POR grid */
+    .achievements-grid, .por-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    .achievement-item, .por-item {
+      background: rgba(0, 30, 50, 0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      backdrop-filter: blur(4px);
+      font-size: 0.95rem;
+      color: #ceecff;
+      box-shadow: inset 0 0 15px rgba(0,255,255,0.05);
+    }
+    .achievement-item strong, .por-item strong {
+      color: white;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 8px cyan;
+    }
+
+    /* work experience cards */
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin: 0.5rem 0 1rem 0;
+    }
+    .exp-card {
+      background: rgba(10, 30, 45, 0.4);
+      border: 1px solid rgba(0,200,255,0.15);
+      border-radius: 1.5rem;
+      padding: 1.3rem;
+    }
+    .exp-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #b9f2ff;
+    }
+    .exp-company {
+      color: #80c0ff;
+      font-size: 0.9rem;
+      margin: 0.2rem 0 0.8rem 0;
+    }
+    .exp-desc {
+      font-size: 0.85rem;
+      color: #b5d0e5;
+      list-style-type: disc;
+      padding-left: 1.2rem;
+    }
+    .exp-desc li {
+      margin: 0.3rem 0;
+    }
+
+    /* skills cloud */
+    .skills-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1rem 0 0.5rem 0;
+    }
+    .skill-chip {
+      background: rgba(0, 180, 230, 0.12);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 40px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.85rem;
+      color: #d1f2ff;
+      backdrop-filter: blur(2px);
+      transition: 0.1s;
+    }
+    .skill-chip:hover {
+      background: rgba(0, 200, 250, 0.25);
+      border-color: cyan;
+      box-shadow: 0 0 15px cyan;
+    }
+
+    .meta-note {
+      font-size: 0.9rem;
+      color: #8caec9;
+      border-top: 1px dashed #2e4a60;
+      padding-top: 1rem;
+      margin-top: 0.2rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .meta-note span {
+      color: #c9e2ff;
+    }
+
+    /* two-column layout for achievements+por */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width:700px){ .two-col{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="glass-card" id="tiltCard">
+    <div class="content">
+      
+      <!-- PROFILE -->
+      <div class="profile-row">
+        <img class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232a4f6e' /%3E%3Ccircle cx='50' cy='40' r='16' fill='%23d9e9ff' /%3E%3Ccircle cx='38' cy='34' r='3' fill='%231e2b39' /%3E%3Ccircle cx='62' cy='34' r='3' fill='%231e2b39' /%3E%3Cpath d='M38 56 Q50 70, 62 56' stroke='%23ffffff' stroke-width='3' fill='none' /%3E%3C/svg%3E" alt="Niyati Bansal">
+        <div class="name-title">
+          <h1>Niyati Bansal</h1>
+          <div class="role">B.Tech Computer Engineering · NMIMS Indore · GPA 3.89</div>
+          <div class="subrole">App Developer · Placement Coordinator · GDG Core Lead</div>
+        </div>
+      </div>
+
+      <!-- TERMINAL BIO (resume highlights) -->
+      <div class="terminal-bio">
+        <div class="typewriter-line" id="typewriterText"></div>
+      </div>
+
+      <!-- SKILLS (visual chip cloud from resume) -->
+      <div class="section-title"><h2>⚙️ technical skills</h2></div>
+      <div class="skills-cloud">
+        <span class="skill-chip">C / C++</span><span class="skill-chip">Python</span><span class="skill-chip">Java</span>
+        <span class="skill-chip">R</span><span class="skill-chip">DSA</span><span class="skill-chip">OOP</span>
+        <span class="skill-chip">Operating Systems</span><span class="skill-chip">HTML5/CSS3</span>
+        <span class="skill-chip">JavaScript</span><span class="skill-chip">ReactJS</span><span class="skill-chip">Node.js</span>
+        <span class="skill-chip">Flutter</span><span class="skill-chip">ML fundamentals</span><span class="skill-chip">ANN/CNN</span>
+        <span class="skill-chip">TensorFlow</span><span class="skill-chip">Git/GitHub</span><span class="skill-chip">Excel</span>
+        <span class="skill-chip">Cybersecurity</span><span class="skill-chip">Unity</span><span class="skill-chip">AR/VR</span>
+      </div>
+
+      <!-- WORK EXPERIENCE (from resume) -->
+      <div class="section-title"><h2>💼 professional experience</h2></div>
+      <div class="experience-grid">
+        <div class="exp-card">
+          <div class="exp-title">Strategy & Market Intelligence Intern</div>
+          <div class="exp-company">PixelIQ & QTech Solutions · Aug 2025 – Nov 2025</div>
+          <ul class="exp-desc">
+            <li>Built healthcare databases, data mining for digital transformation.</li>
+            <li>Gap analysis for B2B leads; improved cold-calling efficiency by 40%.</li>
+            <li>Market research (USA, Australia, Saudi Arabia, UK, UAE) for SaaS/Real Estate.</li>
+            <li>Profiled C‑suite leads with 100% accuracy (Apollo.io), supported GTM strategy.</li>
+          </ul>
+        </div>
+        <div class="exp-card">
+          <div class="exp-title">Designer Intern</div>
+          <div class="exp-company">ZedStudio (gaming studio) · Oct 2025 – Jan 2026</div>
+          <ul class="exp-desc">
+            <li>Designed visual creatives & promotional posters for gaming brand.</li>
+            <li>Edited short-form promotional videos for marketing campaigns.</li>
+            <li>Coordinated with clients & dev teams for visual consistency.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PROJECTS (updated: ClinicConnect live demo, others only GitHub) -->
+      <div class="section-title"><h2>🚀 featured projects</h2></div>
+      <div class="projects-grid">
+        <!-- E-Bookshop (no live demo) -->
+        <div class="project-card">
+          <div class="project-header"><span class="project-icon">📚</span><h3>E-Bookshop</h3></div>
+          <p class="project-desc">Full‑stack e‑commerce with JWT auth, admin dashboard, inventory, wish lists, digital previews.</p>
+          <div class="project-tech"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>JWT</span></div>
+          <div class="project-links"><a href="https://github.com/" target="_blank">GitHub</a></div>
+        </div>
+        <!-- ClinicConnect (LIVE DEMO added as requested) -->
+        <div class="project-card">
+          <div class="project-header"><span class="project-icon">🏥</span><h3>ClinicConnect</h3></div>
+          <p class="project-desc">Offline‑first healthcare (Flask, SQLite). Dynamic scheduling, Twilio SMS, bilingual UI, analytics dashboard.</p>
+          <div class="project-tech"><span>Python</span><span>Flask</span><span>SQLite</span><span>Twilio</span></div>
+          <div class="project-links">
+            <a href="https://github.com/" target="_blank">GitHub</a>
+            <a href="https://niyati26.pythonanywhere.com/" target="_blank">🔗 Live Demo</a>
+          </div>
+        </div>
+        <!-- LexAI (no live demo) -->
+        <div class="project-card">
+          <div class="project-header"><span class="project-icon">⚖️</span><h3>LexAI</h3></div>
+          <p class="project-desc">AI legal platform: summarization, bias detection (Hugging Face + Gemini). 85% time reduction.</p>
+          <div class="project-tech"><span>Python</span><span>Flask</span><span>BERT</span><span>Gemini</span><span>Chart.js</span></div>
+          <div class="project-links"><a href="https://github.com/" target="_blank">GitHub</a></div>
+        </div>
+      </div>
+
+      <!-- ACHIEVEMENTS & POSITIONS (two columns) -->
+      <div class="two-col">
+        <div>
+          <div class="section-title"><h2>🏆 achievements</h2></div>
+          <div class="achievements-grid">
+            <div class="achievement-item"><strong>SIH 2024</strong> University Runner‑up, cleared 2 rounds</div>
+            <div class="achievement-item"><strong>Technex Hackathon</strong> Top 5 Finalist @ NMIMS Indore</div>
+            <div class="achievement-item"><strong>L'Oréal Sustainability Challenge</strong> Top 10 Finalist 2025</div>
+            <div class="achievement-item"><strong>National online hackathon</strong> participant – functional solution</div>
+          </div>
+        </div>
+        <div>
+          <div class="section-title"><h2>👥 positions of responsibility</h2></div>
+          <div class="por-grid">
+            <div class="por-item"><strong>GDG Core Lead</strong> Organized CodeHunt & college hackathon</div>
+            <div class="por-item"><strong>Technical Team</strong> NAMOTSAV, HitNext, TechFest hackathons</div>
+            <div class="por-item"><strong>Social Volunteer</strong> Blood Donation Camp, NGO, Raipur – taught children</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUTTONS (social + hardcoded download) -->
+      <div class="button-grid">
+        <a href="https://github.com/" target="_blank" class="social-btn">GitHub</a>
+        <a href="https://linkedin.com/" target="_blank" class="social-btn">LinkedIn</a>
+        <a href="https://twitter.com/" target="_blank" class="social-btn">X (Twitter)</a>
+        <a href="#" class="social-btn">Portfolio</a>
+        <button id="downloadResumeBtn" class="social-btn download">📄 Download Resume</button>
+      </div>
+
+      <!-- META with extra detail -->
+      <div class="meta-note">
+        <span>📍 Indore, India</span>
+        <span>📧 niyati.b@example.edu</span>
+        <span>🏅 open to work · intern’26</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 65, density: { enable: true, value_area: 900 } },
+          color: { value: '#78bcff' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.2, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.08 } },
+          size: { value: 2.8, random: true, anim: { enable: true, speed: 0.7, size_min: 0.3 } },
+          line_linked: { enable: true, distance: 150, color: '#5f9eff', opacity: 0.12, width: 1 },
+          move: { enable: true, speed: 1.0, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+          modes: { grab: { distance: 170, line_linked: { opacity: 0.25 } }, push: { particles_nb: 2 } }
+        },
+        retina_detect: true
+      });
+
+      // 3D tilt
+      const card = document.getElementById('tiltCard');
+      if (card) {
+        const MAX_ANGLE = 10;
+        let rect = card.getBoundingClientRect();
+        function resetTilt() { card.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1)'; card.style.transform = `rotateX(0deg) rotateY(0deg)`; }
+        function handleMouseMove(e) {
+          rect = card.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left, mouseY = e.clientY - rect.top;
+          const clampedX = Math.min(Math.max(mouseX, 0), rect.width), clampedY = Math.min(Math.max(mouseY, 0), rect.height);
+          const normX = rect.width>0 ? clampedX/rect.width : 0.5, normY = rect.height>0 ? clampedY/rect.height : 0.5;
+          const rotX = (normY-0.5)*2*MAX_ANGLE, rotY = (0.5-normX)*2*MAX_ANGLE;
+          card.style.transition = 'none'; card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        }
+        card.addEventListener('mousemove', handleMouseMove);
+        card.addEventListener('mouseleave', resetTilt);
+        window.addEventListener('resize', ()=> { rect = card.getBoundingClientRect(); });
+        card.addEventListener('mouseenter', ()=> { card.style.transition = 'none'; });
+        rect = card.getBoundingClientRect();
+      }
+
+      // typewriter bio (resume based)
+      const tw = document.getElementById('typewriterText');
+      if (tw) {
+        tw.innerHTML = '';
+        const lines = [
+          "> B.Tech CE · NMIMS Indore · GPA 3.89/4.0",
+          "> Strategy intern @PixelIQ & QTech · ZedStudio designer",
+          "> Skills: C++, Python, Java, React, ML, DSA, OOP, OS",
+          "> SIH finalist · L'Oréal top10 · GDG Core Lead · volunteer"
+        ];
+        const fullText = lines.join("\n");
+        const contentSpan = document.createElement('span');
+        contentSpan.style.whiteSpace = 'pre-wrap';
+        tw.appendChild(contentSpan);
+        const cursorSpan = document.createElement('span'); cursorSpan.className = 'cursor';
+        tw.appendChild(cursorSpan);
+        let idx = 0;
+        function typeNext() {
+          if (idx < fullText.length) {
+            const ch = fullText.charAt(idx);
+            if (ch === '\n') contentSpan.appendChild(document.createElement('br'));
+            else contentSpan.appendChild(document.createTextNode(ch));
+            idx++;
+            setTimeout(typeNext, 50);
+          }
+        }
+        setTimeout(typeNext, 400);
+      }
+
+      // Hardcoded resume download (matches provided PDF content exactly)
+      function generateResumePDF() {
+        const resumeText = 
+`NIYATI BANSAL · RESUME (hardcoded from PDF)
+
+EDUCATION
+Narsee Monjee Institute of Management and Studies, Indore
+B.Tech in Computer Engineering, 2023-2027 | Current GPA: 3.89/4.00
+
+TECHNICAL SKILLS
+Programming & CS: C, C++, Python, Java, R | DSA, DAA, OOP, Operating Systems
+Web/App Dev: HTML5, CSS3, JavaScript, ReactJS, Angular (basic), Node.js (basic), Mobile App fundamentals
+ML & Data: ML fundamentals, ANN, CNN, TensorFlow (basics), Data Extraction, Excel
+Cybersecurity/AR/VR: Cybersecurity fundamentals, Unity (basics), AR/VR fundamentals
+Tools: Git, GitHub, VS Code
+
+PROFESSIONAL EXPERIENCE
+Strategy & Market Intelligence Intern @ PixelIQ & QTech Solutions (Aug 2025 - Nov 2025)
+- Built healthcare provider databases, data mining for digital transformation
+- Gap analysis for B2B leads; improved cold-calling efficiency by 40%
+- International market research (USA, Australia, Saudi Arabia, UK, UAE)
+- Profiled C-suite leads, 100% accuracy using Apollo.io, SWOT/GTM planning
+
+Designer Intern @ ZedStudio (Oct 2025 - Jan 2026)
+- Designed visual creatives and promotional posters for gaming studio
+- Edited short-form promotional videos
+- Coordinated with clients for timely delivery and visual consistency
+
+PROJECTS
+E-Bookshop (Full-Stack Web App) | Apr 2025 | HTML, CSS, JS, JWT, Local Storage
+- Full-stack e-commerce with role-based access, JWT auth, admin dashboard
+- Book inventory, wish lists, checkout, digital previews
+
+ClinicConnect (Healthcare Management) | Feb 2026 | Python, Flask, SQLite, Twilio
+- Offline-first app for tier-2/3 clinics, digitizing patient records
+- Dynamic scheduling algorithms, Twilio SMS reminders
+- Bilingual UI (English/Hindi), real-time analytics dashboard
+🔗 Live demo: https://niyati26.pythonanywhere.com/
+
+LexAI (Legal Intelligence Platform) | Jan 2026 | Python, Flask, Hugging Face, Gemini
+- AI platform for legal doc review, summarization, bias detection
+- Hybrid AI (BART, BERT, RoBERTa + Gemini) for entity extraction
+- Analytics dashboard with KPIs, bias heatmaps, PII masking
+- Reduced manual review time by ~85%, 98% bias detection accuracy
+
+ACHIEVEMENTS
+- Smart India Hackathon (SIH): University Runner-Up, cleared two rounds
+- Technex Hackathon NMIMS: Top 5 Finalist
+- L'Oréal Sustainability Challenge 2025: Top 10 Finalist
+
+POSITIONS OF RESPONSIBILITY
+- Core Lead, Google Developer Group (GDG): organized CodeHunt & college hackathon
+- Technical Team Member: NAMOTSAV, HitNext, TechFest Hackathons
+- Social Volunteer & Educator: Blood Donation Camp, NGO, Raipur
+
+---
+*contact: niyati.b@example.edu · generated from portfolio*
+`;
+        const blob = new Blob([resumeText], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Niyati_Bansal_Resume.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      document.getElementById('downloadResumeBtn').addEventListener('click', generateResumePDF);
+    })();
+  </script>
+</body>
+</html>
