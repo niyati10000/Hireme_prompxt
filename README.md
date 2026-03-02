@@ -44,9 +44,20 @@ A stunning, interactive portfolio website featuring dynamic aurora effects, part
 * **On-the-Fly PDF Generation:** A hardcoded resume download button that generates a PDF containing complete resume content directly from the browser.
 * **Terminal Bio:** Displays real resume highlights (GPA, internships, skills) dynamically.
 * **Skills Cloud:** A visual, interactive representation of all technical skills extracted from the resume.
-
+---
+## 📄 Deployed link
+* https://niyati-hireme.netlify.app/hire_me.html
 ---
 
+---
+## 📄 video reference
+
+
+https://github.com/user-attachments/assets/ec7c1e79-6a3d-4b6a-b893-38c393678701
+
+
+
+---
 ## 🛠️ Technologies Used
 
 * **Frontend:** HTML5, CSS3 (Animations, Grid, Flexbox, 3D transforms), Vanilla JavaScript.
